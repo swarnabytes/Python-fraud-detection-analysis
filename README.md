@@ -1,84 +1,96 @@
-# Credit Card Fraud Detection Analysis
 
-## Project Overview
-This project focuses on analyzing credit card transactions to identify fraudulent activities and understand transaction patterns using data analysis and machine learning techniques.
+# Credit Card Fraud Detection: EDA and Classification
 
-The project uses exploratory data analysis (EDA) and classification algorithms to distinguish between genuine and fraudulent transactions.
+Exploratory analysis and classification modelling on **284,807 credit card transactions** to understand how fraudulent transactions differ from genuine ones, and to build a baseline fraud classifier.
 
-## Problem Statement
-Credit card fraud is a major financial risk. Identifying fraudulent transactions within large volumes of financial data is challenging due to the highly imbalanced nature of transaction datasets.
+**Status:** EDA complete · Logistic Regression baseline complete · Model comparison in progress
 
-## Project Objectives
-- Analyze financial transaction patterns.
-- Identify differences between genuine and fraudulent transactions.
-- Perform exploratory data analysis.
-- Build machine learning classification models.
-- Evaluate model performance using appropriate metrics.
-- Interpret results from a financial risk perspective.
+---
+
+## Business Problem
+
+Card fraud causes direct financial loss, and fraud teams must find a very small number of bad transactions among millions of genuine ones. In this dataset fraud is only about 0.17% of transactions, so a model that predicts "genuine" every time looks 99.8% accurate but catches no fraud. This project therefore focuses on **understanding fraud patterns first** and evaluating models with **precision, recall and ROC-AUC** instead of accuracy.
 
 ## Dataset
-**Source:** [Kaggle – Credit Card Fraud Detection](https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud)
 
-Dataset features include:
-- Time: Seconds elapsed between a transaction and the first transaction.
-- V1–V28: Anonymized features obtained through PCA transformation.
-- Amount: Transaction amount.
-- Class: Target variable (0 = Genuine, 1 = Fraudulent).
+- **Source:** [Kaggle: Credit Card Fraud Detection (ULB)](https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud)
+- **Size:** 284,807 transactions, 31 columns
+- **Columns:** `Time`, `Amount`, `Class` (0 = genuine, 1 = fraud), and `V1`–`V28` (anonymised PCA features)
+- **Class balance:** about 0.17% fraud (highly imbalanced)
 
-## Technologies Used
-- Python
-- Pandas
-- NumPy
-- Matplotlib
-- Seaborn
-- Scikit-learn
-- Jupyter Notebook
+## Key Findings (EDA)
 
-## Project Workflow
+- **Fraud is rare:** only about 0.17% of transactions are fraudulent, so accuracy alone is misleading.
+- **Average amount is higher for fraud:** mean amount is **122.21 for fraud vs 88.29 for genuine** transactions.
+- **Typical amount is lower for fraud:** median amount is **9.25 for fraud vs 22.00 for genuine**. Fraud mixes many very small transactions with a few large ones, which pull the mean up. This pattern is consistent with fraudsters testing a stolen card with small amounts before larger charges.
+- **Correlation, time and V-feature analysis:** see the folders listed below for the full breakdown.
 
-### 1. Data Cleaning and Exploratory Data Analysis
-- Dataset inspection and validation.
-- Missing values and duplicate checks.
-- Outlier analysis.
-- Transaction distribution analysis.
-- Fraud vs. genuine transaction analysis.
-- Feature correlation analysis.
+<!--
+TO DO BEFORE PUBLISHING: save 2-3 charts from your notebooks into an `images/` folder,
+then remove the comment markers around the lines below.
 
-### 2. Machine Learning
-- Train-test split.
-- Feature scaling.
-- Logistic Regression.
-- Decision Tree Classification.
-- Random Forest Classification.
+![Fraud vs genuine amount distribution](images/amount_distribution.png)
+![Feature correlation with fraud](images/correlation.png)
+![Fraud by time of day](images/time_analysis.png)
+-->
 
-### 3. Model Evaluation
-- Accuracy
-- Precision
-- Recall
-- F1-score
-- Confusion Matrix
-- ROC-AUC
+## Modelling
 
-### 4. Risk Interpretation
-- Identification of fraudulent transaction patterns.
-- Analysis of false positives and false negatives.
-- Evaluation of fraud detection effectiveness.
+| Step | Status |
+|---|---|
+| Train-test split + StandardScaler | Done |
+| Logistic Regression (baseline) | Done |
+| Handling class imbalance | In progress |
+| Decision Tree and Random Forest | In progress |
+| Evaluation: precision, recall, F1, confusion matrix, ROC-AUC | In progress |
 
-## Current Project Status
-**In Progress**
+<!--
+TO DO: once finished, replace this comment with a results table from your notebook, for example:
 
-Completed:
-- Data cleaning and validation.
-- Exploratory Data Analysis.
-- Initial Logistic Regression implementation.
-- Initial accuracy evaluation.
+| Model | Precision | Recall | F1 | ROC-AUC |
+|---|---|---|---|---|
+| Logistic Regression | ... | ... | ... | ... |
+| Random Forest | ... | ... | ... | ... |
 
-Upcoming:
-- Detailed model evaluation.
-- Handling class imbalance.
-- Decision Tree and Random Forest.
-- Model comparison.
-- Final business and risk interpretation.
+Then add 2-3 lines on which model you would pick and why (a fraud team usually cares most about recall,
+balanced against false alarms).
+-->
 
-## Expected Outcome
-An analytical study of credit card transaction patterns and a machine learning-based approach to identifying fraudulent transactions, supported by model evaluation and financial risk interpretation.
+## Repository Structure
+
+```
+├── Basic_EDA/                      # dataset inspection, missing values, duplicates
+├── Transaction_comparison/         # fraud vs genuine comparison
+├── Transactional_amount_analysis/  # transaction amount patterns
+├── V_columns_analysis/             # anonymised PCA feature analysis
+├── correlation/                    # correlation analysis
+├── time_analysis/                  # time-based patterns
+├── Check_Outliers.py               # outlier checks
+├── ml.ipynb                        # modelling notebook
+├── fraud_analysis_report.pdf       # written summary report
+├── requirements.txt
+└── README.md
+```
+
+## How to Run
+
+1. Clone the repository and install the libraries:
+   ```bash
+   pip install -r requirements.txt
+   ```
+2. Download `creditcard.csv` from the Kaggle link above and place it in the project folder (it is not included here because of its size).
+3. Open the notebooks in Jupyter and run the cells from top to bottom.
+
+## Tools
+
+Python · Pandas · NumPy · Matplotlib · Seaborn · Scikit-learn · Jupyter Notebook
+
+## Next Steps
+
+- Finish class-imbalance handling and compare models on recall and ROC-AUC
+- Add a short risk interpretation: what false positives and false negatives would cost a bank
+
+## Author
+
+**Swarna Choudhary**, aspiring Data Analyst
+Delhi NCR, India
