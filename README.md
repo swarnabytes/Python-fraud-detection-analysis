@@ -34,16 +34,6 @@ then remove the comment markers around the lines below.
 ![Fraud by time of day](images/time_analysis.png)
 -->
 
-## Modelling
-
-| Step | Status |
-|---|---|
-| Train-test split + StandardScaler | Done |
-| Logistic Regression (baseline) | Done |
-| Handling class imbalance | In progress |
-| Decision Tree and Random Forest | In progress |
-| Evaluation: precision, recall, F1, confusion matrix, ROC-AUC | In progress |
-
 <!--
 TO DO: once finished, replace this comment with a results table from your notebook, for example:
 
